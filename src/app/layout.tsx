@@ -3,6 +3,7 @@ import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/components/providers/ReduxProvider";
 import { cn } from "@/lib/utils";
+import Header from "@/components/layout/Header/Header";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <html lang="ru" className={cn("font-sans", geist.variable)}>
             <body className={inter.className}>
                 <ReduxProvider>
+                    <Header/>
                     {children}
                 </ReduxProvider>
             </body>
