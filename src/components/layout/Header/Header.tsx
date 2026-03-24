@@ -1,32 +1,56 @@
-'use client'
+'use client';
 
-import HeaderDesktop from "./HeaderDesktop"
-import HeaderMobile from "./HeaderMobile"
-import useHeader from "./useHeader"
+import { HeaderNav } from './HeaderNav';
+import { HeaderAuth } from './HeaderAuth';
+import { HeaderMobile } from './HeaderMobile';
+import { Button } from '@/components/ui/button';
+import { ShoppingCart } from 'lucide-react';
 
-import siteLogo from '@/assets/img/icons/site-logo.png'
+import Link from 'next/link';
+import Image from 'next/image';
+import siteLogo from '@/assets/img/icons/site-logo.png';
 
-export default function Header(){
-    
-    const {
-        headerMode
-    } = useHeader()
+export function Header() {
+	return (
+		<header className="sticky top-0 z-50 w-full h-16 border-b border-stone-200 bg-stone-100/95 backdrop-blur supports-[backdrop-filter]:bg-stone-100/60 transition-all duration-300">
+			<div className="mx-auto px-4 h-16 flex items-center justify-between">
+				<Link href="/" className="flex items-center gap-2 group">
+					<Image
+						className="w-16 h-16 object-contain transition-transform duration-300 group-hover:scale-105"
+						src={siteLogo}
+						alt="Site logo"
+						height={100}
+						width={100}
+						priority
+					/>
+					<span className="font-bold text-xl text-stone-800 hidden sm:inline transition-colors duration-300 group-hover:text-amber-600">
+						Хмельная Кузня
+					</span>
+				</Link>
 
-    return(
-        <header
-            className="p-5 bg-sky-400"
-        >
-            <img
-                src={siteLogo}
-                alt="Site logo"
-            />
+				<HeaderNav />
 
-            {
-                headerMode == 'desktop'
-                ? <HeaderDesktop/>
-                : <HeaderMobile/>
-            }
-            
-        </header>
-    )
+				<div className="flex items-center gap-2">
+					<Link href="/cart">
+						<Button 
+							variant="ghost" 
+							size="icon" 
+							className="relative hover:bg-stone-200/50 transition-all duration-300"
+						>
+							<ShoppingCart className="w-5 h-5" />
+							<span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-600 text-white text-xs rounded-full flex items-center justify-center">
+								0
+							</span>
+						</Button>
+					</Link>
+
+					<div className="hidden lg:block">
+						<HeaderAuth/>
+					</div>
+
+					<HeaderMobile/>
+				</div>
+			</div>
+		</header>
+	);
 }

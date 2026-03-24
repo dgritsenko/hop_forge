@@ -1,12 +1,20 @@
-import Plug from "@/components/Plug";
-import { Button } from "@/components/ui/button";
+'use client';
 
-export default function Home() {
-    return (
-        <main>
+import { Hero } from '@/components/pages/landing/Hero';
+import { BeerSlider } from '@/components/pages/landing/BeerSlider';
+import { Features } from '@/components/pages/landing/Features';
+import { AgeVerification } from '@/components/shared/AgeVerification';
+import { useLanding } from '@/hooks/useLanding';
 
-            {/* <Plug/> */}
+export default function page() {
+	const { beerCards, features } = useLanding();
 
-        </main>
-    );
-  }
+	return (
+		<>
+			<AgeVerification />
+			<Hero />
+			<BeerSlider beerCards={beerCards} />
+			<Features features={features} />
+		</>
+	);
+}

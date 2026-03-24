@@ -1,32 +1,33 @@
-import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
-import "./globals.css";
-import ReduxProvider from "@/components/providers/ReduxProvider";
-import { cn } from "@/lib/utils";
-import Header from "@/components/layout/Header/Header";
+import type { Metadata } from 'next';
+import { Inter, Geist } from 'next/font/google';
+import './globals.css';
+import ReduxProvider from '@/components/providers/ReduxProvider';
+import { cn } from '@/lib/utils';
+import { Header } from '@/components/layout/Header/Header';
+import { Footer } from '@/components/layout/Footer/Footer';
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
+const inter = Inter({ subsets: ['latin'] });
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata : Metadata = {
-    title: "Hop Forge | Пивоваренный конструктор",
-    description: "Создай свое идеальное крафтовое пиво",
+export const metadata: Metadata = {
+	title: 'Хмельная Кузня | Крафтовый пивоваренный конструктор',
+	description: 'Создай своё идеальное крафтовое пиво',
 };
 
 export default function RootLayout({
-    children,
+	children,
 }: Readonly<{
-    children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-    return (
-        <html lang="ru" className={cn("font-sans", geist.variable)}>
-            <body className={inter.className}>
-                <ReduxProvider>
-                    <Header/>
-                    {children}
-                </ReduxProvider>
-            </body>
-        </html>
-    );
+	return (
+		<html lang="ru" className={cn('font-sans', geist.variable)}>
+			<body className={cn(inter.className, 'min-h-screen bg-stone-50 flex flex-col')}>
+				<ReduxProvider>
+					<Header />
+					<main className="flex-1">{children}</main>
+					<Footer />
+				</ReduxProvider>
+			</body>
+		</html>
+	);
 }

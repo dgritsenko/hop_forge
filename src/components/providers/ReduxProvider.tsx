@@ -1,4 +1,4 @@
-'use client'; // Обязательно!
+'use client'; 
 
 import { Provider } from 'react-redux';
 import { makeStore, AppStore } from '@/store/store';
@@ -7,7 +7,6 @@ import { useRef } from 'react';
 export default function ReduxProvider({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
-    // Создаем стор только один раз
     storeRef.current = makeStore();
   }
 

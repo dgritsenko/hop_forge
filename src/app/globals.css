@@ -1,3 +1,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "tailwindcss";
+
+main {
+  min-height: calc(100vh - 100px);;
+}
