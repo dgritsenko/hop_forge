@@ -1,127 +1,114 @@
 'use client'
 
-import {useState} from 'react'
-
-import { Form } from "radix-ui";
-import { Input } from "@/components/ui/input";
-import { eventNames } from 'process';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { useForm, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field"
+import Link from "next/link"
+import LoginFormButtons from "./LoginFormButtons"
+import validateFormData from "@/lib/validate/validateFormData"
+import useAuth from "@/hooks/useAuth"
+import { ILoginForm, loginSchema } from "@/lib/validators"
 
 export default function LoginForm(){
+    const {
+        control, 
+        handleSubmit,
+        formState:{errors, isSubmitting}
+    } = useForm<ILoginForm>({
+        resolver: zodResolver(loginSchema)
+    });
 
-    const [
-        userPassword,
-        setUserPassword
-    ] = useState<string>()
+    const {
+        login
+    } = useAuth()
 
-    const [
-        userEmail,
-        setUserEmail
-    ] = useState<string>()
+    const loginValidation = (formData: ILoginForm)=>{
+        const validateResult = validateFormData(loginSchema, formData)
 
-    return (
-        <Form.Root
+        if(!validateResult.success) {
+            console.log('АСИБЬКА')
+            return 0
+        }
+        if(!validateResult.data?.email) return 0
+        if(!validateResult.data?.password) return 0
+ 
+        login(validateResult.data)
+
+        
+    }
+
+    return(
+        <form
             className="
                 w-100 p-10 mt-50 rounded-4xl
                 bg-stone-200
                 justify-center items-center text-center    
             "
-            // action={login}
+            onSubmit={handleSubmit(formData=>{loginValidation(formData)})}
         >
-            <Form.Field
+            <Controller
+                control={control}
                 name="email"
-            >
-                <div
-                >
-                    <Form.Label
-                        className='text-lg'
+                render={({field,fieldState})=>(
+                    <Field
+                        data-invalid={fieldState.invalid}
                     >
-                        Email
-                    </Form.Label>
+                        <FieldLabel
+                            className='text-lg'
+                        >
+                            email
+                        </FieldLabel>
 
-                    <div>
-                        <Form.Message match="valueMissing">
-                            Пожалуйста введите email
-                        </Form.Message>
-                        
-                        <Form.Message match="typeMismatch">
-                            Вы ввели неккоректный email
-                        </Form.Message>
-                    </div>
-                </div>
-                <Form.Control asChild>
-                    <Input 
-                        type="email"
-                        required 
-                        placeholder='hopForge@hopForge.ru'
+                        <Input
+                            {...field}
+                            aria-invalid={fieldState.invalid}
+                            placeholder="example@example.su"
+                            type="email"
+                        >
 
-                        value={userEmail}
-                        onChange={event=>setUserEmail(event.target.value)}
+                        </Input>
+                        <FieldError>
+                            {errors.email?.message}
+                        </FieldError>
 
-                    />
-                </Form.Control>
-            </Form.Field>
-            <Form.Field 
-                className='mt-10'
-                name="question"
-            >
-                <div
+                    </Field>
+                )}
+            />
 
-                >
-                    <Form.Label
-                        className='text-lg'
-                    >Пароль</Form.Label>
-                    <div>
-                        <Form.Message match="valueMissing">
-                            Please enter a question
-                        </Form.Message>
-                    </div>
-                </div>
-                <Form.Control asChild>
-                    <Input 
-                        type="password"
-                        placeholder='Введите пароль'
-
-                        value={userPassword}
-                        onChange={event=>setUserPassword(event.target.value)}
-                        />
-                </Form.Control>
-            </Form.Field>
-            <div
-                className='mt-10'
-            >
-                <Form.Submit 
-                    asChild
-                >
-                    <Button
-                        className="
-                            p-5 cursor-pointer rounded-4xl
-                            text-lg bg-amber-500 text-white 
-                            transition-all duration-300
-                            duration
-                            hover:bg-amber-700 hover:text-amber-600
-                        "
+            <Controller
+                control={control}
+                name="password"
+                render={({field,fieldState})=>(
+                    <Field
+                        className='mt-10'
+                        data-invalid={fieldState.invalid}
                     >
-                        Войти
-                    </Button>
-                </Form.Submit>
-                <Link
-                    href={'/auth/registration'}
-                >
-                    <Button
-                        className="
-                            ml-4 p-5 cursor-pointer rounded-4xl
-                            text-lg bg-amber-50 text-amber-600 
-                            transition-all duration-300
-                            duration
-                            hover:bg-stone-200/50
-                        "
-                    >
-                        Регистрация
-                    </Button>
-                </Link>
-            </div>
-        </Form.Root>
+                        <FieldLabel
+                            className='text-lg'
+                        >
+                            Пароль
+                        </FieldLabel>
+
+                        <Input
+                            {...field}
+                            aria-invalid={fieldState.invalid}
+                            placeholder="Введите пароль"
+                            type="password"
+                        >
+
+                        </Input>
+                        <FieldError>
+                            {errors.password?.message}
+                        </FieldError>
+
+                    </Field>
+                )}
+            />
+            <LoginFormButtons/>
+
+        </form>
     )
 }
