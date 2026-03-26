@@ -7,27 +7,29 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field"
 import Link from "next/link"
-import LoginFormButtons from "./LoginFormButtons"
+import LoginFormButtons from "./RegistrationFormButtons"
 import validateFormData from "@/lib/validate/validateFormData"
-import useAuth from "@/hooks/useAuth"
-import { ILoginForm, loginSchema } from "@/lib/validators"
+import { IRegistrationForm, registrationSchema } from "@/lib/validators"
 import InputForm from "../InputForm"
+import RegistrationFormButtons from "./RegistrationFormButtons"
 
-export default function LoginForm(){
+interface RegistrationForm{
+    registration: ()=>void,
+}
+
+export default function RegistrationForm({
+    registration,
+}:RegistrationForm){
     const {
         control, 
         handleSubmit,
         formState:{errors, isSubmitting}
-    } = useForm<ILoginForm>({
-        resolver: zodResolver(loginSchema)
+    } = useForm<IRegistrationForm>({
+        resolver: zodResolver(registrationSchema)
     });
 
-    const {
-        login
-    } = useAuth()
-
-    const loginValidation = (formData: ILoginForm)=>{
-        const validateResult = validateFormData(loginSchema, formData)
+    const registrationValidation = (formData: IRegistrationForm)=>{
+        const validateResult = validateFormData(registrationSchema, formData)
 
         if(!validateResult.success) {
             console.log('АСИБЬКА')
@@ -36,7 +38,7 @@ export default function LoginForm(){
         if(!validateResult.data?.email) return 0
         if(!validateResult.data?.password) return 0
  
-        login(validateResult.data)
+        // registration(validateResult.data)
 
         
     }
@@ -48,7 +50,7 @@ export default function LoginForm(){
                 bg-stone-200
                 justify-center items-center text-center    
             "
-            onSubmit={handleSubmit(formData=>{loginValidation(formData)})}
+            onSubmit={handleSubmit(formData=>{registrationValidation(formData)})}
         >
             <InputForm
                 control = {control}
@@ -57,8 +59,9 @@ export default function LoginForm(){
                 placeholder = {"example@example.su"}
                 label = {'email'}
                 error = {errors.email}
-                className = {'text-lg'}
+
             />
+
 
             <InputForm
                 control = {control}
@@ -72,7 +75,7 @@ export default function LoginForm(){
 
             />
 
-            <LoginFormButtons/>
+            <RegistrationFormButtons/>
 
         </form>
     )

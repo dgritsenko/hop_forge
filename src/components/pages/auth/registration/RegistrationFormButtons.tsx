@@ -1,0 +1,38 @@
+import { Button } from "@/components/ui/button";
+import { Link } from "lucide-react";
+
+export default function RegistrationFormButtons(){
+    return (
+        <div
+            className='mt-10'
+        >
+            <Button
+                className="
+                    p-5 cursor-pointer rounded-4xl
+                    text-lg bg-amber-500 text-white 
+                    transition-all duration-300
+                    duration
+                    hover:bg-amber-700 hover:text-amber-600
+                "
+                type="submit"
+            >
+                Зарегистрироваться
+            </Button>
+            <Link
+                href={'/auth/login'}
+            >
+                <Button
+                    className="
+                        ml-4 p-5 cursor-pointer rounded-4xl
+                        text-lg bg-amber-100 text-amber-600 
+                        transition-all duration-300
+                        duration
+                        hover:bg-amber-50
+                    "
+                >
+                    Войти
+                </Button>
+            </Link>
+        </div>
+    )
+}

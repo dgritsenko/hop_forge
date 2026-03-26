@@ -49,7 +49,7 @@ export function HeaderMobile() {
 						Войти
 					</NavButton>
 					<NavButton
-						href="/auth/register"
+						href="/auth/registration"
 						className="w-full text-center py-3 text-base bg-amber-600 text-white hover:bg-amber-700"
 						onClick={() => setOpen(false)}
 					>

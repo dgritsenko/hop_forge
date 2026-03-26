@@ -33,7 +33,7 @@ export function HeaderAuth() {
 					Войти
 				</Button>
 			</Link>
-			<Link href="/auth/register">
+			<Link href="/auth/registration">
 				<Button 
 					className="p-3 bg-amber-600 hover:bg-amber-700 text-white transition-all duration-300"
 				>
