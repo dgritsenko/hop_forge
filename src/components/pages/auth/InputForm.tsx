@@ -13,6 +13,7 @@ export default function InputForm<T extends FieldValues>({
     label,
     error,
     className,
+    ...props
 
 }:InputFormInterface<T>){
     return(
@@ -34,6 +35,7 @@ export default function InputForm<T extends FieldValues>({
                         aria-invalid={fieldState.invalid}
                         placeholder={placeholder}
                         type={type}
+                        {...props}
                     >
 
                     </Input>

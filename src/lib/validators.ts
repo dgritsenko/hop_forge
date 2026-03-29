@@ -23,3 +23,12 @@ export const registrationSchema = z.object({
 });
 
 export type IRegistrationForm = z.infer<typeof registrationSchema>
+
+export const emailAuthSchema = z.object({
+	authCode: 
+		z.number()
+		.min(6,'Код не меньше 6 символов')
+		.max(6,'Код не больше 6 символов')
+});
+
+export type IEmailAuthForm = z.infer<typeof emailAuthSchema>

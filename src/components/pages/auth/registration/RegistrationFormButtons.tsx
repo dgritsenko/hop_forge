@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 export default function RegistrationFormButtons(){
     return (
@@ -16,7 +16,7 @@ export default function RegistrationFormButtons(){
                 "
                 type="submit"
             >
-                Зарегистрироваться
+                Регистрация
             </Button>
             <Link
                 href={'/auth/login'}

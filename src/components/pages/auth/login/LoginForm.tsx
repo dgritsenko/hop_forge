@@ -55,7 +55,7 @@ export default function LoginForm(){
                 name = {'email'}
                 type = {'email'}
                 placeholder = {"example@example.su"}
-                label = {'email'}
+                label = {'Email'}
                 error = {errors.email}
                 className = {'text-lg'}
             />

@@ -1,9 +1,10 @@
 'use client'
 
-import { ILoginForm, IRegistrationForm } from "@/lib/validators"
+import { IEmailAuthForm, ILoginForm, IRegistrationForm } from "@/lib/validators"
 import { redirect } from 'next/navigation'
 import axios from "axios"
 import { useState } from "react"
+import { success } from "zod"
 
 export const API_AUTH = 'https:/SERVER/api/auth' 
 
@@ -12,14 +13,18 @@ export default function useAuth(){
     const [
         registrationStage,
         setRegistrationStage
-    ] = useState('')
+    ] = useState<'registration'|'emailAuth'>('registration')
+
+    const [
+        emailVerificationStatus,
+        setEmailVerificationStatus
+    ] = useState<'success'|'invalid'|'expired'|null>(null)
 
     const login = async({email,password}:ILoginForm)=>{
         try{
 
             const response = await axios.post(`${API_AUTH}/login`,{
-                email,
-                password
+                email, password
             })
 
             redirect('/profile')
@@ -32,15 +37,15 @@ export default function useAuth(){
     }
 
     const registration = async({
-        name, email, phoneNumber, birthDate, password, 
+        name, email, phoneNumber, birthDate, password,
     }:IRegistrationForm)=>{
         try{
 
-            const response = await axios.post(`${API_AUTH}/login`,{
-                email,
-                password
+            const response = await axios.post(`${API_AUTH}/registration`,{
+                name, email, phoneNumber, birthDate, password
             })
 
+            setRegistrationStage('emailAuth')
 
         }catch(error){
             console.log(error)
@@ -50,15 +55,20 @@ export default function useAuth(){
     }
 
 
-    const emailVeryfi = async({email,password}:ILoginForm)=>{
+    const emailVeryfi = async(authCode:number)=>{
         try{
 
-            const response = await axios.post(`${API_AUTH}/login`,{
-                email,
-                password
+            const response = await axios.post(`${API_AUTH}/emailAuth`,{
+                authCode
             })
 
+            setEmailVerificationStatus(response.data.emailVerificationStatus)
 
+            if(response.data.emailVerificationStatus == 'success'){
+                setRegistrationStage('registration')
+                redirect('/profile')
+            }
+            
         }catch(error){
             console.log(error)
             throw error
@@ -72,5 +82,6 @@ export default function useAuth(){
         emailVeryfi,
 
         registrationStage,
+        emailVerificationStatus,
     }
 }

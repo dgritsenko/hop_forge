@@ -4,7 +4,7 @@ export interface InputFormInterface<T extends FieldValues>{
     control:Control<T>,
     name:Path<T>,
     type:string,
-    placeholder:string,
+    placeholder?:string,
     label:string,
     error?: FieldError,
     className?: string

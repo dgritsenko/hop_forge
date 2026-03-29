@@ -14,7 +14,7 @@ import InputForm from "../InputForm"
 import RegistrationFormButtons from "./RegistrationFormButtons"
 
 interface RegistrationForm{
-    registration: ()=>void,
+    registration: ({}:IRegistrationForm)=>void,
 }
 
 export default function RegistrationForm({
@@ -31,16 +31,19 @@ export default function RegistrationForm({
     const registrationValidation = (formData: IRegistrationForm)=>{
         const validateResult = validateFormData(registrationSchema, formData)
 
-        if(!validateResult.success) {
-            console.log('АСИБЬКА')
+        if(
+            !validateResult.success
+            || !validateResult.data?.name
+            || !validateResult.data?.email
+            || !validateResult.data?.phoneNumber
+            || !validateResult.data?.birthDate
+            || !validateResult.data?.password
+        ) {
             return 0
         }
-        if(!validateResult.data?.email) return 0
-        if(!validateResult.data?.password) return 0
  
-        // registration(validateResult.data)
+        registration(validateResult.data)
 
-        
     }
 
     return(
@@ -54,14 +57,48 @@ export default function RegistrationForm({
         >
             <InputForm
                 control = {control}
+                name = {'name'}
+                type = {'text'}
+                placeholder = {"Введите имя"}
+                label = {'Имя'}
+                error = {errors.name}
+
+                className = {'text-lg'}
+            />
+
+            <InputForm
+                control = {control}
                 name = {'email'}
                 type = {'email'}
                 placeholder = {"example@example.su"}
-                label = {'email'}
+                label = {'Email'}
                 error = {errors.email}
 
+                className = {'text-lg mt-10'}
             />
 
+
+            <InputForm
+                control = {control}
+                name = {'phoneNumber'}
+                type = {'text'}
+                placeholder = {"+7(000)000 00 00"}
+                label = {'Номер телефона'}
+                error = {errors.phoneNumber}
+
+                className = {'text-lg mt-10'}
+            />
+
+            <InputForm
+                control = {control}
+                name = {'birthDate'}
+                type = {'date'}
+                placeholder = {""}
+                label = {'Дата рождение'}
+                error = {errors.birthDate}
+
+                className = {'text-lg mt-10'}
+            />
 
             <InputForm
                 control = {control}
@@ -72,7 +109,6 @@ export default function RegistrationForm({
                 error = {errors.password}
 
                 className = {'text-lg mt-10'}
-
             />
 
             <RegistrationFormButtons/>
