@@ -18,7 +18,7 @@ export default function useAuth(){
     const [
         emailVerificationStatus,
         setEmailVerificationStatus
-    ] = useState<'success'|'invalid'|'expired'|null>(null)
+    ] = useState <'success'|'invalid'|'expired'|null>(null)
 
     const login = async({email,password}:ILoginForm)=>{
         try{
@@ -55,10 +55,10 @@ export default function useAuth(){
     }
 
 
-    const emailVeryfi = async(authCode:number)=>{
+    const emailVerify = async(authCode:number)=>{
         try{
 
-            const response = await axios.post(`${API_AUTH}/emailAuth`,{
+            const response = await axios.post(`${API_AUTH}/emailVerify`,{
                 authCode
             })
 
@@ -79,7 +79,7 @@ export default function useAuth(){
     return {
         login,
         registration,
-        emailVeryfi,
+        emailVerify,
 
         registrationStage,
         emailVerificationStatus,

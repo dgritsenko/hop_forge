@@ -19,9 +19,6 @@ beforeEach(() => {
 // login()-----------------------------------------------------------------
 
 describe('useAuth Hook Login', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
 
     it('должен успешно выполнить вход и перенаправить пользователя', async () => {
 
@@ -62,9 +59,6 @@ describe('useAuth Hook Login', () => {
 // registration()-----------------------------------------------------------------
 
 describe('useAuth Hook registration', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
 
     it('Должна успешно пройти регистрация перенаправление пользователя', async () => {
 
@@ -114,37 +108,33 @@ describe('useAuth Hook registration', () => {
     })
 })
 
-// emailVeryfi()-----------------------------------------------------------------
+// emailVerify()-----------------------------------------------------------------
 
-describe('useAuth Hook emailVeryfi', () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
+describe('useAuth Hook emailVerify', () => {
 
     it('Должна успешно пройти подтверждение почты', async () => {
 
         const mockEmailAuthData = 123456;
 		
-        (axios.post as jest.Mock).mockResolvedValue({
-            data: { status: 'success', message: 'Email подтвержден' },
-			status: 200,
+        mockedAxios.post.mockResolvedValue({ 
+            data:{
+                emailVerificationStatus: 'success'
+            },
+            status: 200 
         })
+
 
         const { result } = renderHook(() => useAuth())
         
 
-        await act(async()=>{
-            await result.current.emailVeryfi(mockEmailAuthData)
-        })
+        await result.current.emailVerify(mockEmailAuthData)
+        
+        await waitFor(() => expect(result.current.emailVerificationStatus).toBe('success'))
 
-		await waitFor(() => {
-			expect(result.current.emailVerificationStatus).toBe(true);
-		});
-
-		expect(axios.post).toHaveBeenCalledTimes(1);
-		expect(axios.post).toHaveBeenCalledWith(
+		expect(mockedAxios.post).toHaveBeenCalledTimes(1);
+		expect(mockedAxios.post).toHaveBeenCalledWith(
 			`${API_AUTH}/emailVerify`,
-			{ code: mockEmailAuthData }
+			{ authCode: mockEmailAuthData }
 		);
 
 		expect(redirect).toHaveBeenCalledWith('/profile');
@@ -161,9 +151,7 @@ describe('useAuth Hook emailVeryfi', () => {
 
         const { result } = renderHook(() => useAuth())
 
-        act(()=>{
-            expect(result.current.emailVeryfi(mockEmailAuthData)).rejects.toThrow('Unveryfi')
-        })
+        expect(result.current.emailVerify(mockEmailAuthData)).rejects.toThrow('Unveryfi')
 
         expect(mockedAxios.post).toHaveBeenCalledTimes(1)
         expect(redirect).not.toHaveBeenCalled()

@@ -14,12 +14,12 @@ import InputForm from "../InputForm"
 import RegistrationFormButtons from "./RegistrationFormButtons"
 
 interface EmailAuthForm{
-    emailVeryfi: (authCode:number)=>void
+    emailVerify: (authCode:number)=>void
     emailVerificationStatus: 'success'|'invalid'|'expired'|null
 }
 
 export default function EmailAuthForm({
-    emailVeryfi
+    emailVerify
 }:EmailAuthForm){
     
     const {
@@ -37,7 +37,7 @@ export default function EmailAuthForm({
             return 0
         }
  
-        emailVeryfi(validateResult.data.authCode)
+        emailVerify(validateResult.data.authCode)
 
         
     }

@@ -8,7 +8,7 @@ export default function Registration(){
     
     const {
         registration,
-        emailVeryfi,
+        emailVerify,
 
         registrationStage,
         emailVerificationStatus
@@ -28,7 +28,7 @@ export default function Registration(){
                     />
                 :
                     <EmailAuthForm
-                        emailVeryfi={emailVeryfi}
+                        emailVerify={emailVerify}
                         emailVerificationStatus={emailVerificationStatus}
                     />
             }
