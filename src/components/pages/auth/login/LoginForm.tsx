@@ -11,7 +11,7 @@ import LoginFormButtons from "./LoginFormButtons"
 import validateFormData from "@/lib/validate/validateFormData"
 import useAuth from "@/hooks/useAuth"
 import { ILoginForm, loginSchema } from "@/lib/validators"
-import InputForm from "../InputForm"
+import InputForm from "@/components/shared/InputForm/InputForm"
 
 export default function LoginForm(){
     const {

@@ -10,7 +10,7 @@ import Link from "next/link"
 import LoginFormButtons from "./RegistrationFormButtons"
 import validateFormData from "@/lib/validate/validateFormData"
 import { IRegistrationForm, registrationSchema } from "@/lib/validators"
-import InputForm from "../InputForm"
+import InputForm from "@/components/shared/InputForm/InputForm"
 import RegistrationFormButtons from "./RegistrationFormButtons"
 
 interface RegistrationForm{
