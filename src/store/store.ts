@@ -1,15 +1,12 @@
-// src/store/store.ts
 import { configureStore } from '@reduxjs/toolkit';
-import dummyReducer from './slices/dummySlice'; // ← Импортируем заглушку
+import userReducer from './slices/userSlice';
 
-export const makeStore = () => {
-  return configureStore({
+export const store = () => configureStore({
     reducer: {
-      dummy: dummyReducer, // ← Добавляем в конфиг
+        user: userReducer,
     },
-  });
-};
+});
 
-export type AppStore = ReturnType<typeof makeStore>;
+export type AppStore = ReturnType<typeof store>;
 export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];

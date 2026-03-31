@@ -1,12 +1,18 @@
-import { useState } from "react"
+'use client'
+import { useAppSelector } from '@/store/hooks';
+import { selectUser, selectIsAuthenticated, selectUserLoading, selectUserError } from '@/store/slices/userSlice';
+import { useState } from 'react';
 
-export default function useUser(){
-    const [
-        user,
-        setUser
-    ] = useState()
-    
-    return {
+export const useUser = () => {
+	const user = useAppSelector(selectUser);
+	const isAuthenticated = useAppSelector(selectIsAuthenticated);
+	const loading = useAppSelector(selectUserLoading);
+	const error = useAppSelector(selectUserError);
 
-    }
-}
+	return {
+		user,
+		isAuthenticated,
+		loading,
+		error,
+	};
+};

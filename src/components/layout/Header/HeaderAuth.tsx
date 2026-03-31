@@ -1,15 +1,18 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useUser } from '@/hooks/useUser';
 import { UserCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export function HeaderAuth() {
-	// Пока мокаем что заглушка
-	const isAuthenticated = false;
-	const userName = 'Пивовар';
 
-	if (isAuthenticated) {
+	const {
+		user,
+		isAuthenticated
+	} = useUser()
+
+	if (isAuthenticated && user) {
 		return (
 			<Link href="/profile">
 				<Button 
@@ -17,7 +20,7 @@ export function HeaderAuth() {
 					className="gap-2 text-stone-700 hover:text-amber-600 hover:bg-stone-200/50 transition-all duration-300"
 				>
 					<UserCircle className="w-5 h-5" />
-					<span className="hidden sm:inline">{userName}</span>
+					<span className="hidden sm:inline">{user.name}</span>
 				</Button>
 			</Link>
 		);
