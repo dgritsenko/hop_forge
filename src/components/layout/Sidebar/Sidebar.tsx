@@ -2,12 +2,7 @@
 
 import SidebarNav from './SidebarNav'
 
-interface SidebarProps {
-	isOpen: boolean
-	onClose: () => void
-}
-
-export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+export default function Sidebar() {
 	return (
 		<>
 

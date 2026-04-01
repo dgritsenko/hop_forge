@@ -9,7 +9,7 @@ export interface User {
     name: string;
     email: string;
     numberPhone: string;
-    birthDate: Date;
+    birthDate: string;
     role: 'user' | 'admin';
 }
 
@@ -163,7 +163,7 @@ export const userSlice = createSlice({
                     name: 'Степан',
                     email: 'stepan@gmail.com',
                     numberPhone: '+79002209614',
-                    birthDate: new Date('2007-05-12'),
+                    birthDate: '2007-05-12',
                     role: 'user'
                 }
                 if (action.payload) {

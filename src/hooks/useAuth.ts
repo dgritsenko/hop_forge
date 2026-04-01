@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation'
 import axios from "axios"
 import { useState } from "react"
 import { success } from "zod"
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 export const API_AUTH = 'https:/SERVER/api/auth' 
 
@@ -41,8 +43,11 @@ export default function useAuth(){
     }:IRegistrationForm)=>{
         try{
 
+
+            const birthDateString = format(birthDate, 'dd, MM, yyyy', { locale: ru });
+
             const response = await axios.post(`${API_AUTH}/registration`,{
-                name, email, phoneNumber, birthDate, password
+                name, email, phoneNumber, birthDateString, password
             })
 
             setRegistrationStage('emailAuth')

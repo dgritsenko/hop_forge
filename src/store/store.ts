@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
+import cartReducer from './slices/cartSlice';
 
-export const store = () => configureStore({
+export const store = () =>
+  configureStore({
     reducer: {
-        user: userReducer,
+      user: userReducer,
+      cart: cartReducer,
     },
-});
+  });
 
 export type AppStore = ReturnType<typeof store>;
 export type RootState = ReturnType<AppStore['getState']>;

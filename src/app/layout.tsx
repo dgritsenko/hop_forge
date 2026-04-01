@@ -4,7 +4,6 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/Header/Header';
 import { Footer } from '@/components/layout/Footer/Footer';
-import UserInitializer from '@/providers/UserInitializer';
 import { Providers } from '@/providers/Providers';
 
 export const metadata: Metadata = {

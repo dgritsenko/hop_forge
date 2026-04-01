@@ -25,7 +25,7 @@ export default function ProfileForm(){
 		defaultValues: {
 			name: user?.name || '',
 			phoneNumber: user?.numberPhone || '',
-			birthDate: user?.birthDate || new Date(),
+			birthDate: user?.birthDate || '',
 		}
 	});
 

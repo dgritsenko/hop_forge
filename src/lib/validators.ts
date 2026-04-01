@@ -11,12 +11,12 @@ export const loginSchema = z.object({
 export type ILoginForm = z.infer<typeof loginSchema>
 
 export const registrationSchema = z.object({
-	name: z.string(),
+	name: z.string('Поле не может быть пустым').min(1,'Поле не может быть пустым'),
 	email: z.email('Неккоректный email'),
-	phoneNumber: z.string().regex(/^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im, 'Неправильный формат номера телефона'),
-	birthDate: z.date('Это должна быть дата'),
+	phoneNumber: z.string('Поле не может быть пустым').regex(/^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im, 'Неправильный формат номера телефона'),
+	birthDate: z.string('Поле не может быть пустым').min(1,'Поле не может быть пустым'),
 	password:
-		z.string()
+		z.string('Поле не может быть пустым')
 		.min(8,'Пароль должен быть не менее 8 символов')
 		.max(30,'Пароль должен быть не больше 30 символов'),
 	
@@ -42,13 +42,7 @@ export const profileSchema = z.object({
 	phoneNumber: z.string()
 		.regex(/^[\+]?[0-9]{0,3}\W?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im, 
 		'Неправильный формат номера телефона'),
-	// Оставляем Date, конвертируем через setValueAs в форме
-	birthDate: z.date('Дата рождения обязательна')
-		.refine((date) => {
-			const today = new Date();
-			const age = today.getFullYear() - date.getFullYear();
-			return age >= 18;
-		}, 'Вам должно быть не менее 18 лет'),
+	birthDate: z.string('Поле не может быть пустым').min(1,'Поле не может быть пустым'),
 });
 
 export type IProfileForm = z.infer<typeof profileSchema>;

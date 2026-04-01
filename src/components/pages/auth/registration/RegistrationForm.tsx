@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field"
 import Link from "next/link"
 import LoginFormButtons from "./RegistrationFormButtons"
-import validateFormData from "@/lib/validate/validateFormData"
 import { IRegistrationForm, registrationSchema } from "@/lib/validators"
 import InputForm from "@/components/shared/InputForm/InputForm"
 import RegistrationFormButtons from "./RegistrationFormButtons"
@@ -28,24 +27,6 @@ export default function RegistrationForm({
         resolver: zodResolver(registrationSchema)
     });
 
-    const registrationValidation = (formData: IRegistrationForm)=>{
-        const validateResult = validateFormData(registrationSchema, formData)
-
-        if(
-            !validateResult.success
-            || !validateResult.data?.name
-            || !validateResult.data?.email
-            || !validateResult.data?.phoneNumber
-            || !validateResult.data?.birthDate
-            || !validateResult.data?.password
-        ) {
-            return 0
-        }
- 
-        registration(validateResult.data)
-
-    }
-
     return(
         <form
             className="
@@ -53,7 +34,10 @@ export default function RegistrationForm({
                 bg-stone-200
                 justify-center items-center text-center    
             "
-            onSubmit={handleSubmit(formData=>{registrationValidation(formData)})}
+            onSubmit={handleSubmit(formData=>{
+                console.log(formData)                
+                // registration(formData)
+            })}
         >
             <InputForm
                 control = {control}

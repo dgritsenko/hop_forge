@@ -11,7 +11,7 @@ import {
 
 const navItems = [
 	{
-		href: '/constructor',
+		href: '/beer-constructor',
 		label: 'Кузня пива',
 		icon: Beer,
 	},

@@ -3,6 +3,7 @@
 import { HeaderNav } from './HeaderNav';
 import { HeaderAuth } from './HeaderAuth';
 import { HeaderMobile } from './HeaderMobile';
+import { useCart } from '@/hooks/useCart';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart } from 'lucide-react';
 
@@ -11,6 +12,10 @@ import Image from 'next/image';
 import siteLogo from '@/assets/img/icons/site-logo.png';
 
 export function Header() {
+	const { items } = useCart();
+
+	const totalQuantity = items.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
+
 	return (
 		<header className="sticky top-0 z-50 w-full h-16 border-b border-stone-200 bg-stone-100/95 backdrop-blur supports-[backdrop-filter]:bg-stone-100/60 transition-all duration-300">
 			<div className="mx-auto px-4 h-16 flex items-center justify-between">
@@ -36,11 +41,14 @@ export function Header() {
 							variant="ghost" 
 							size="icon" 
 							className="relative hover:bg-stone-200/50 transition-all duration-300"
+							aria-label={`Корзина, товаров: ${totalQuantity}`}
 						>
 							<ShoppingCart className="w-5 h-5" />
-							<span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-600 text-white text-xs rounded-full flex items-center justify-center">
-								0
-							</span>
+							{totalQuantity > 0 && (
+								<span className="absolute -top-1 -right-1 w-5 h-5 bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-200">
+									{totalQuantity > 99 ? '99+' : totalQuantity}
+								</span>
+							)}
 						</Button>
 					</Link>
 

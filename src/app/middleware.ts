@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const {isAuthenticated} = useUser()
   
-  const protectedRoutes = ['/profile', '/constructor', '/catalog', '/order']
+  const protectedRoutes = ['/profile', '/beer-constructor', '/catalog', '/order']
   const isProtectedRoute = protectedRoutes.some(route => 
     request.nextUrl.pathname.startsWith(route)
   )
@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
   )
 
   if (isProtectedRoute && !isAuthenticated) {
-    return NextResponse.redirect(new URL('/auth/login', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   if (isAuthRoute && isAuthenticated) {

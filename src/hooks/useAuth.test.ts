@@ -66,7 +66,7 @@ describe('useAuth Hook registration', () => {
             name:'Сергей', 
             email: 'test@example.com',
             phoneNumber:'+79002209614', 
-            birthDate: new Date('12:05:2007'),
+            birthDate: '2007-05-12',
             password: '12345678',
         }
         
@@ -92,7 +92,7 @@ describe('useAuth Hook registration', () => {
             name:'Сергей', 
             email: 'test@example.com',
             phoneNumber:'+79002209614', 
-            birthDate: new Date('12:05:2015'),
+            birthDate: '2015-05-12',
             password: '12345678',
         }
 
