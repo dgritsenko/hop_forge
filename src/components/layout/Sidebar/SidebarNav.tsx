@@ -36,7 +36,7 @@ export default function SidebarNav() {
 	const pathname = usePathname()
 
 	return (
-		<nav className="flex flex-col gap-2">
+		<nav className="flex flex-col gap-8 mt-16">
 			{navItems.map((item) => {
 				const Icon = item.icon
 				const isActive = pathname === item.href
@@ -50,8 +50,9 @@ export default function SidebarNav() {
 							text-stone-700 font-medium
 							transition-all duration-300 ease-in-out
 							${isActive 
-								? 'bg-amber-100 text-amber-700' 
-								: 'hover:bg-stone-100 hover:text-amber-600'
+								? 'bg-amber-100 text-amber-700 hover:bg-amber-200 hover:text-amber-800'
+								
+								: 'hover:bg-stone-200 hover:text-amber-600'
 							}
 						`}
 					>
