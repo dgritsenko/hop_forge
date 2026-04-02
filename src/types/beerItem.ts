@@ -33,6 +33,7 @@ export interface CatalogItem extends BeerItemBase {
 export interface CustomRecipe extends BeerItemBase {
   type: 'custom';
   recipeId: string;
+  imageUrl?:string
   price: number;
   customIngredients: CustomIngredient[];
   constructorState?: Record<string, unknown>;
