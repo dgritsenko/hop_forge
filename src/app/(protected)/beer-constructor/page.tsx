@@ -1,6 +1,6 @@
 'use client'
 
-export default function beerContsructorPage(){
+export default function BeerContsructorPage(){
     
     return(
         <div
