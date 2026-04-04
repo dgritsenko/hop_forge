@@ -31,7 +31,7 @@ export default function BeerConstructorPage() {
     } = useBeerConstructor();
 
     return (
-        <main className="min-h-screen bg-stone-100 py-8">
+        <>        
             <div className="container mx-auto px-4">
                 <h1 className="text-4xl sm:text-5xl font-bold text-stone-800 mb-4 text-center">
                     Конструктор пива
@@ -87,6 +87,6 @@ export default function BeerConstructorPage() {
                     </div>
                 </div>
             </div>
-        </main>
+        </>
     );
 }

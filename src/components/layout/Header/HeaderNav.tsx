@@ -4,10 +4,11 @@ import { NavButton } from '@/components/shared/NavButton';
 
 const navItems = [
 	{ href: '/', label: 'Главная' },
-	{ href: '/catalog', label: 'Каталог' },
-	{ href: '/editor', label: 'Конструктор' },
 	{ href: '/about', label: 'О нас' },
+	{ href: '/contacts', label: 'Контакты' },
+	{ href: '/faq', label: 'Частые вопросы' },
 ];
+
 
 export function HeaderNav() {
 	return (

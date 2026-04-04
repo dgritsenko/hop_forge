@@ -1,8 +1,8 @@
 'use client';
 
-import { Feature } from '@/hooks/useLanding';
 import { Cpu, Leaf, Truck, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Feature } from '@/lib/mocks/features';
 
 interface FeaturesProps {
 	features: Feature[];
@@ -29,7 +29,7 @@ export function Features({ features, className = '' }: FeaturesProps) {
 					</p>
 				</div>
 				
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 					{features.map((feature) => (
 						<div
 							key={feature.id}
@@ -50,16 +50,6 @@ export function Features({ features, className = '' }: FeaturesProps) {
 					))}
 				</div>
 				
-				<div className="text-center mt-12">
-					<a href="/editor">
-						<Button 
-							size="lg"
-							className="px-8 py-6 text-lg bg-amber-600 hover:bg-amber-700 text-white transition-all duration-300"
-						>
-							Попробовать конструктор
-						</Button>
-					</a>
-				</div>
 			</div>
 		</section>
 	);

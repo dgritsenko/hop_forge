@@ -2,8 +2,8 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { BeerCard } from '@/hooks/useLanding';
 import { Button } from '@/components/ui/button';
+import { BeerCard } from '@/lib/mocks/beerCards';
 import Link from 'next/link';
 
 import 'swiper/css';

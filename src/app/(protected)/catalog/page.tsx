@@ -4,6 +4,7 @@ import { useCatalog } from '@/hooks/useCatalog';
 import { CatalogAnchorNav } from '@/components/pages/catalog/CatalogAnchorNav';
 import { CatalogSection } from '@/components/pages/catalog/CatalogSection';
 import { Loader2 } from 'lucide-react';
+import { AgeVerification } from '@/components/shared/AgeVerification';
 
 export default function CatalogPage() {
     const { sections, loading, error } = useCatalog();
@@ -36,7 +37,9 @@ export default function CatalogPage() {
     }
 
     return (
-        <main className="min-h-screen bg-stone-50 pt-[140px] pb-16">
+        <div className="min-h-screen bg-stone-50 pt-[140px] pb-16">
+            <AgeVerification />
+            
             <CatalogAnchorNav sections={sections} />
 
             <div className="container mx-auto px-4">
@@ -51,6 +54,6 @@ export default function CatalogPage() {
                     <CatalogSection key={section.id} section={section} />
                 ))}
             </div>
-        </main>
+        </div>
     );
 };
