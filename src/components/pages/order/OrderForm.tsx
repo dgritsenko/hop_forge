@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import InputForm from '@/components/shared/InputForm/InputForm';
 import { IOrderForm } from '@/lib/validators';
 import { useUser } from '@/hooks/useUser';
+import numberPhoneValidator from '@/utils/numberPhoneValidator';
 
 export const OrderForm = () => {
     const { control, formState: { errors } } = useFormContext<IOrderForm>();
@@ -35,6 +36,9 @@ export const OrderForm = () => {
                         label="Телефон *"
                         placeholder="+7 (999) 000-00-00"
                         error={errors.customerPhone}
+
+                        customFormatted
+                        formatHandler={numberPhoneValidator}
                     />
 
                     <InputForm<IOrderForm>

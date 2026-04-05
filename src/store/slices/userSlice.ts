@@ -36,6 +36,8 @@ const initialState: UserState = {
     error: null,
 };
 
+const API_USER = 'https://SERVER/api/user/'
+
 // --- Async Thunk: Обновление профиля ---
 export const updateProfile = createAsyncThunk<
     User,
@@ -46,7 +48,7 @@ export const updateProfile = createAsyncThunk<
     async (formData, thunkAPI) => {
         try {
             const response = await axios.patch<User>(
-                'https://SERVER/api/user/changeData',
+                `${API_USER}/changeData`,
                 formData,
                 { withCredentials: true }
             );
@@ -71,7 +73,7 @@ export const changePassword = createAsyncThunk<
     async (formData, thunkAPI) => {
         try {
             const response = await axios.post<{ message: string }>(
-                'https://SERVER/api/user/changePassword',
+                `${API_USER}/changePassword`,
                 formData,
                 { withCredentials: true }
             );
@@ -95,7 +97,7 @@ export const fetchUserMe = createAsyncThunk<
     async (_, thunkAPI) => {
         try {
             const response = await axios.get<User>(
-                'https://SERVER/api/user/me',
+                `${API_USER}/me`,
                 { withCredentials: true }
             );
             return response.data;
@@ -118,7 +120,7 @@ export const fetchUserLogout = createAsyncThunk<
     async (_, thunkAPI) => {
         try {
             const response = await axios.get<LogoutResult>(
-                'https://SERVER/api/user/logout',
+                `${API_USER}/logout`,
                 { withCredentials: true } 
             );
             return response.data;

@@ -19,7 +19,11 @@ export default function LoginForm(){
         handleSubmit,
         formState:{errors, isSubmitting}
     } = useForm<ILoginForm>({
-        resolver: zodResolver(loginSchema)
+        resolver: zodResolver(loginSchema),
+        defaultValues:{
+            email:'',
+            password:'',
+        }
     });
 
     const {

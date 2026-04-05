@@ -27,7 +27,10 @@ export default function EmailAuthForm({
         handleSubmit,
         formState:{errors, isSubmitting}
     } = useForm<IEmailAuthForm>({
-        resolver: zodResolver(emailAuthSchema)
+        resolver: zodResolver(emailAuthSchema),
+        defaultValues:{
+            authCode:Number(),
+        }
     });
 
     const emailAuthValidation = (formData: IEmailAuthForm)=>{

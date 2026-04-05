@@ -11,6 +11,7 @@ import LoginFormButtons from "./RegistrationFormButtons"
 import { IRegistrationForm, registrationSchema } from "@/lib/validators"
 import InputForm from "@/components/shared/InputForm/InputForm"
 import RegistrationFormButtons from "./RegistrationFormButtons"
+import numberPhoneValidator from "@/utils/numberPhoneValidator"
 
 interface RegistrationForm{
     registration: ({}:IRegistrationForm)=>void,
@@ -24,7 +25,14 @@ export default function RegistrationForm({
         handleSubmit,
         formState:{errors, isSubmitting}
     } = useForm<IRegistrationForm>({
-        resolver: zodResolver(registrationSchema)
+        resolver: zodResolver(registrationSchema),
+        defaultValues:{
+            name: '',
+            email: '',
+            password: '',
+            phoneNumber: '',
+            birthDate: '',
+        }
     });
 
     return(
@@ -71,6 +79,9 @@ export default function RegistrationForm({
                 error = {errors.phoneNumber}
 
                 className = {'text-lg mt-10'}
+
+                customFormatted
+                formatHandler={numberPhoneValidator}
             />
 
             <InputForm

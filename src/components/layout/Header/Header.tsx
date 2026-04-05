@@ -56,7 +56,7 @@ export function Header() {
 							aria-label={ariaLabel}
 						>
 							<ShoppingCart className="w-5 h-5" />
-							{isHydrated || totalQuantity > 0 && (
+							{isHydrated && totalQuantity > 0 && (
 								<span className="absolute -top-1 -right-1 w-5 h-5 bg-amber-600 text-white text-xs font-semibold rounded-full flex items-center justify-center animate-in fade-in zoom-in duration-200">
 									{totalQuantity > 99 ? '99+' : totalQuantity}
 								</span>

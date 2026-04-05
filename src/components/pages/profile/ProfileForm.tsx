@@ -9,6 +9,7 @@ import { useUserActions } from "@/hooks/useUserActions"
 import InputForm from "@/components/shared/InputForm/InputForm"
 import { useState } from "react"
 import PasswordChangeModal from "./PasswordChangeModal"
+import numberPhoneValidator from "@/utils/numberPhoneValidator"
 
 export default function ProfileForm(){
 	const { user } = useUser();
@@ -24,7 +25,7 @@ export default function ProfileForm(){
 		resolver: zodResolver(profileSchema),
 		defaultValues: {
 			name: user?.name || '',
-			phoneNumber: user?.numberPhone || '',
+			phoneNumber: numberPhoneValidator(user?.numberPhone || ''),
 			birthDate: user?.birthDate || '',
 		}
 	});
@@ -95,10 +96,13 @@ export default function ProfileForm(){
 					control = {control}
 					name = {'phoneNumber'}
 					type = {'tel'}
-					placeholder = {"+79999999999"}
+					placeholder = {"+7(999) 999-99-99"}
 					label = {'Телефон'}
 					error = {errors.phoneNumber}
 					className = {'text-base'}
+
+					customFormatted
+					formatHandler={numberPhoneValidator}
 				/>
 
 

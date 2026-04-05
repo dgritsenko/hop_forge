@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { CatalogSection } from '@/types/beerItem';
 import { getCatalogSections } from '@/lib/mocks/catalogMocks';
+import axios from 'axios';
 
 export interface UseCatalogReturn {
     sections: CatalogSection[];
@@ -16,11 +17,17 @@ export const useCatalog = (): UseCatalogReturn => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const API_CATALOG = 'https:/SERVER/api/catalog' 
+
+
     const loadData = useCallback(async () => {
         setLoading(true);
         setError(null);
 
         try {
+            const response = axios.get(`${API_CATALOG}/getCatalog`,{
+                'withCredentials': true
+            })
             await new Promise((resolve) => setTimeout(resolve, 800));
 
             const data = getCatalogSections();

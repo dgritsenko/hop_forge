@@ -13,6 +13,10 @@ export default function InputForm<T extends FieldValues>({
     label,
     error,
     className,
+
+    customFormatted,
+    formatHandler,
+
     ...props
 
 }:InputFormInterface<T>){
@@ -20,31 +24,71 @@ export default function InputForm<T extends FieldValues>({
         <Controller
             control={control}
             name={name}
-            render={({field,fieldState})=>(
-                <Field
-                    data-invalid={fieldState.invalid}
-                >
-                    <FieldLabel
-                        className={className}
+            render={({field,fieldState})=>{
+
+                if(customFormatted && formatHandler){
+
+                        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                            const formatted = formatHandler(e.target.value || '');
+                            
+                            field.onChange(formatted); 
+                        };
+
+
+
+                    return(
+                        <Field
+                            data-invalid={fieldState.invalid}
+                        >
+                            <FieldLabel
+                                className={className}
+                            >
+                                {label}
+                            </FieldLabel>
+
+                            <Input
+                                {...field}
+                                value={field.value}
+                                onChange={handleChange}
+                                aria-invalid={fieldState.invalid}
+                                placeholder={placeholder}
+                                type={type}
+                                {...props}
+                            >
+
+                            </Input>
+                            <FieldError>
+                                {error?.message}
+                            </FieldError>
+
+                        </Field>
+                    )
+                }else return(
+                    <Field
+                        data-invalid={fieldState.invalid}
                     >
-                        {label}
-                    </FieldLabel>
+                        <FieldLabel
+                            className={className}
+                        >
+                            {label}
+                        </FieldLabel>
 
-                    <Input
-                        {...field}
-                        aria-invalid={fieldState.invalid}
-                        placeholder={placeholder}
-                        type={type}
-                        {...props}
-                    >
+                        <Input
+                            {...field}
+                            aria-invalid={fieldState.invalid}
+                            placeholder={placeholder}
+                            type={type}
+                            {...props}
+                        >
 
-                    </Input>
-                    <FieldError>
-                        {error?.message}
-                    </FieldError>
+                        </Input>
+                        <FieldError>
+                            {error?.message}
+                        </FieldError>
 
-                </Field>
-            )}
+                    </Field>
+                )
+            }}
         />       
     )
 }
