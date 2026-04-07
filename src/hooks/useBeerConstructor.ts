@@ -25,7 +25,7 @@ const VOLUME_PRICES: Record<number, number> = {
 const MAX_INGREDIENTS = 5;
 
 export const useBeerConstructor = (): UseBeerConstructorReturn => {
-    const API_BC = 'https:/SERVER/api/auth' 
+    const API_BC = 'https:/SERVER/api/beer-constructor' 
 
     const { addItemToCart } = useCart();
 

@@ -48,7 +48,7 @@ export function Header() {
 				<HeaderNav />
 
 				<div className="flex items-center gap-2">
-					<Link href="/cart">
+					<Link href="/order">
 						<Button 
 							variant="ghost" 
 							size="icon" 

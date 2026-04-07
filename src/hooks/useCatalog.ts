@@ -25,12 +25,14 @@ export const useCatalog = (): UseCatalogReturn => {
         setError(null);
 
         try {
-            const response = axios.get(`${API_CATALOG}/getCatalog`,{
-                'withCredentials': true
-            })
+            // const response = axios.get(`${API_CATALOG}/getCatalog`,{
+            //     'withCredentials': true
+            // })
+            // setSections((await response).data);
+            
             await new Promise((resolve) => setTimeout(resolve, 800));
-
             const data = getCatalogSections();
+
             setSections(data);
         } catch (err) {
             setError('Не удалось загрузить каталог');
