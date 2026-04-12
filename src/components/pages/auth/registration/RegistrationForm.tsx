@@ -43,8 +43,8 @@ export default function RegistrationForm({
                 justify-center items-center text-center    
             "
             onSubmit={handleSubmit(formData=>{
-                console.log(formData)                
-                // registration(formData)
+                // console.log(formData)                
+                registration(formData)
             })}
         >
             <InputForm

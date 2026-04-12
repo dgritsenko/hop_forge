@@ -7,13 +7,20 @@ import { profileSchema, IProfileForm } from "@/lib/validators"
 import { useUser } from "@/hooks/useUser"
 import { useUserActions } from "@/hooks/useUserActions"
 import InputForm from "@/components/shared/InputForm/InputForm"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PasswordChangeModal from "./PasswordChangeModal"
 import numberPhoneValidator from "@/utils/numberPhoneValidator"
 
 export default function ProfileForm(){
+
 	const { user } = useUser();
-	const { updateUserData, logout, updateUserPassword } = useUserActions();
+	
+	const { 
+		updateUserData, 
+		logout, 
+		updateUserPassword
+	} = useUserActions();
+	
 	const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
 	const {
@@ -25,10 +32,15 @@ export default function ProfileForm(){
 		resolver: zodResolver(profileSchema),
 		defaultValues: {
 			name: user?.name || '',
+			email: user?.email || '',
 			phoneNumber: numberPhoneValidator(user?.numberPhone || ''),
 			birthDate: user?.birthDate || '',
 		}
 	});
+
+	// useEffect(() => {
+	// 	console.log('Ошибки валидации:', errors)
+	// }, [errors])
 
 	const onSubmit = (formData: IProfileForm) => {
 		updateUserData(formData).unwrap()
@@ -58,7 +70,10 @@ export default function ProfileForm(){
 					flex flex-col gap-6
 					transition-all duration-300 ease-in-out
 				"
-				onSubmit={handleSubmit(onSubmit)}
+				onSubmit={handleSubmit(formData=>{
+					onSubmit(formData)
+				
+				})}
 			>
 				<div className="text-center mb-2">
 					<h2 className="text-3xl font-bold text-stone-800">Личные данные</h2>
@@ -75,7 +90,7 @@ export default function ProfileForm(){
 					className = {'text-base'}
 				/>
 
-				<div className="w-full text-left">
+				{/* <div className="w-full text-left">
 					<label className="block text-sm font-medium text-stone-700 mb-1">Email</label>
 					<input 
 						type="text" 
@@ -90,7 +105,17 @@ export default function ProfileForm(){
 						"
 					/>
 					<p className="text-xs text-stone-500 mt-1">Email нельзя изменить</p>
-				</div>
+				</div> */}
+
+				<InputForm
+					control = {control}
+					name = {'email'}
+					type = {'email'}
+					placeholder = {"sample@email.com"}
+					label = {'Email'}
+					error = {errors.name}
+					className = {'text-base'}
+				/>
 
 				<InputForm
 					control = {control}
@@ -118,7 +143,8 @@ export default function ProfileForm(){
 
 				<div className="flex flex-col sm:flex-row gap-4 mt-2 justify-center pt-4 border-t border-stone-200">
 					<Button 
-						type="submit" 
+						type="submit"
+
 						disabled={isSubmitting}
 						className="
 							bg-amber-600 text-white 

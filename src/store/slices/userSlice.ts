@@ -36,7 +36,7 @@ const initialState: UserState = {
     error: null,
 };
 
-const API_USER = 'https://SERVER/api/user/'
+const API_USER = '/api/user'
 
 // --- Async Thunk: Обновление профиля ---
 export const updateProfile = createAsyncThunk<
@@ -100,12 +100,15 @@ export const fetchUserMe = createAsyncThunk<
                 `${API_USER}/me`,
                 { withCredentials: true }
             );
+            console.log('Данные пользователя ',response.data)
             return response.data;
         } catch (err) {
             const error = err as AxiosError<ErrorResponse>;
             if (error.response) {
+                console.log(error.response.data)
                 return thunkAPI.rejectWithValue(error.response.data);
             }
+                console.log('Не удалось загрузить данные пользователя')
             return thunkAPI.rejectWithValue({ message: 'Не удалось загрузить данные пользователя' });
         }
     }
@@ -158,16 +161,17 @@ export const userSlice = createSlice({
             })
             .addCase(fetchUserMe.rejected, (state, action) => {
                 state.loading = false;
-                // state.isAuthenticated = false; сейчас будет заглушка на время разработки 
-                state.isAuthenticated = true;
-                state.user = {
-                    id: '123',
-                    name: 'Степан',
-                    email: 'stepan@gmail.com',
-                    numberPhone: '+79002209614',
-                    birthDate: '2007-05-12',
-                    role: 'user'
-                }
+                //  сейчас будет заглушка на время разработки
+                state.isAuthenticated = false; 
+                // state.isAuthenticated = true;
+                // state.user = {
+                //     id: '123',
+                //     name: 'Степан',
+                //     email: 'stepan@gmail.com',
+                //     numberPhone: '+79002209614',
+                //     birthDate: '2007-05-12',
+                //     role: 'user'
+                // }
                 if (action.payload) {
                     state.error = action.payload.message;
                 } else {

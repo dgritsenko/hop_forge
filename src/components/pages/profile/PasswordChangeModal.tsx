@@ -22,10 +22,18 @@ export default function PasswordChangeModal({isOpen, onClose, onSubmit}: Passwor
 		formState:{errors, isSubmitting},
 		reset
 	} = useForm<IPasswordChangeForm>({
-		resolver: zodResolver(passwordChangeSchema)
+		resolver: zodResolver(passwordChangeSchema),
+		defaultValues: {
+			currentPassword:'',
+			newPassword:'',
+			confirmPassword:'',
+		}
 	});
 
 	const handleFormSubmit = (data: IPasswordChangeForm) => {
+
+		console.log('Обновлённые данные: ',data)
+
 		onSubmit(data).unwrap()
 			.then(() => {
 				reset();

@@ -29,22 +29,9 @@ export default function EmailAuthForm({
     } = useForm<IEmailAuthForm>({
         resolver: zodResolver(emailAuthSchema),
         defaultValues:{
-            authCode:Number(),
+            authCode:'',
         }
     });
-
-    const emailAuthValidation = (formData: IEmailAuthForm)=>{
-        const validateResult = validateFormData(emailAuthSchema, formData)
-
-        if(!validateResult.success || !validateResult.data?.authCode) {
-            return 0
-        }
- 
-        emailVerify(validateResult.data.authCode)
-
-        
-    }
-    
     
     return (
         <form
@@ -53,7 +40,9 @@ export default function EmailAuthForm({
                 bg-stone-200
                 justify-center items-center text-center    
             "
-            onSubmit={handleSubmit(formData=>{emailAuthValidation(formData)})}
+            onSubmit={handleSubmit(formData=>{
+                emailVerify(formData)
+            })}
         >
             <InputForm
                 control = {control}

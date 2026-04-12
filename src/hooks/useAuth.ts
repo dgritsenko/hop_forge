@@ -8,7 +8,7 @@ import { success } from "zod"
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
-export const API_AUTH = 'https:/SERVER/api/auth' 
+export const API_AUTH = '/api/auth' 
 
 export default function useAuth(){
 
@@ -29,7 +29,8 @@ export default function useAuth(){
                 email, password
             })
 
-            redirect('/profile')
+            console.log('РЕГИСТРАЦИЯ УСПЕШНА: ',response)
+            // redirect('/profile')
 
         }catch(error){
             console.log(error)
@@ -60,7 +61,7 @@ export default function useAuth(){
     }
 
 
-    const emailVerify = async(authCode:number)=>{
+    const emailVerify = async({authCode}:{authCode:number})=>{
         try{
 
             const response = await axios.post(`${API_AUTH}/emailVerify`,{

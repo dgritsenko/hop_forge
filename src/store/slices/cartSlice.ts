@@ -5,7 +5,7 @@ import type { RootState } from '@/store/store';
 import { CartItem, CartItemWithQuantity, CartState } from '@/types/beerItem';
 
 const CART_STORAGE_KEY = 'hop-forge-cart';
-const API_CART = 'https://server/api/cart'
+const API_CART = 'http://localhost:18080/api/cart'
 
 const loadCartFromStorage = (): CartItemWithQuantity[] => {
     if (typeof window === 'undefined') return [];

@@ -5,7 +5,7 @@ const reqField = 'Поле обязательно к заполнению'
 
 export const emailAuthSchema = z.object({
 	authCode: 
-		z.number(reqField)
+		z.string(reqField)
 		.min(6,'Код не меньше 6 символов')
 		.max(6,'Код не больше 6 символов')
 

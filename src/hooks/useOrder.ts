@@ -12,7 +12,7 @@ export default function useOrder(){
     
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const API_ORDER = 'https:/SERVER/api/order' 
+    const API_ORDER = '/api/order' 
 
     const createOrder = async (data: IOrderForm) => {
         setIsSubmitting(true);

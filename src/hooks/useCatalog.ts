@@ -17,7 +17,7 @@ export const useCatalog = (): UseCatalogReturn => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const API_CATALOG = 'https:/SERVER/api/catalog' 
+    const API_CATALOG = '/api/catalog' 
 
 
     const loadData = useCallback(async () => {
